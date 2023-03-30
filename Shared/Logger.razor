@@ -1,0 +1,13 @@
+﻿<hr />
+<div class="row" style="margin-top: revert; height: 450px; overflow: auto">
+    @if (@log.Length > 0)
+    {
+        <h2> Log Summary:</h2>
+    }
+    <pre>@log</pre>
+</div>
+
+@code {
+    [Parameter]
+    public StringBuilder log { get; set; }
+}

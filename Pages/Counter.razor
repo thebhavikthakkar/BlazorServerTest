@@ -1,0 +1,32 @@
+﻿@page "/"
+@inject CounterProcessor counterProcessor
+@implements IDisposable
+
+<PageTitle>Counter</PageTitle>
+
+<div class="row">
+    <Dynamic_Counter  CounterControlId="1" Value="@counterProcessor.counter.Counter1" ></Dynamic_Counter>
+    <Dynamic_Counter CounterControlId="2" Value="@counterProcessor.counter.Counter2" ></Dynamic_Counter>
+</div>
+
+<hr />
+
+<div class="row">
+    <Dynamic_Counter CounterControlId="3" Value="@counterProcessor.counter.Counter3" ></Dynamic_Counter>
+    <Dynamic_Counter CounterControlId="4" Value="@counterProcessor.counter.Counter4" ></Dynamic_Counter>
+</div>
+
+<Logger log="@counterProcessor.counter.Log"></Logger>
+
+@code {
+    protected override void OnInitialized()
+    {
+        counterProcessor.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        counterProcessor.counter = new Models.Counter();
+        counterProcessor.OnChange -= StateHasChanged;
+    }
+}

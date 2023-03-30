@@ -1,0 +1,48 @@
+﻿<div class="col-sm-6">
+    <h1>Counter @CounterControlId</h1>
+
+    <p role="status">Current count: @Value </p>
+
+    <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+</div>
+
+@code {
+    [Parameter]
+    public int CounterControlId { get; set; }
+
+    [Parameter]
+    public int Value { get; set; }
+
+
+    private void IncrementCount()
+    {
+        counterProcessor.UpdateCounter(CounterControlId);
+    }
+
+    protected override void OnInitialized()
+    {
+        LogEvent("Counter " + CounterControlId + " Event: OnInitialized");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        LogEvent("Counter " + CounterControlId + " Event: OnInitializedAsync");
+    }
+
+    protected override void OnParametersSet()
+    {
+        LogEvent("Counter " + CounterControlId + " Event: OnParametersSet");
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        LogEvent("Counter " + CounterControlId + " Event: OnParametersSetAsync");
+    }
+
+    void LogEvent(string message)
+    {
+        counterProcessor.counter.Log.Append(Environment.NewLine);
+        counterProcessor.counter.Log.Append(message);
+        counterProcessor.counter.Log.Append(Environment.NewLine);
+    }
+}
